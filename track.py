@@ -79,6 +79,8 @@ while(1):
     cv2.imshow('frame',frame)
     cv2.imshow('mask',mask)
     
+    #keren sekali
+    
     img[:] = [s,h,v]
 
 #print mask
