@@ -63,7 +63,7 @@ while(1):
     
     l = [cv2.boundingRect(cnt) for cnt in contours]
     if(len(l)):
-        l = max(l,key=lambda item:item[2])
+        l = max(l,key=lambda item:item[2]+item[3])
     #    print l
         (x,y,w,h) = list(l)
 #        frame = cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
