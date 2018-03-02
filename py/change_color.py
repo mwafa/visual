@@ -16,4 +16,3 @@ while True:
 v.release()
 cv2.destroyWindow("gray")
 cv2.destroyWindow("gray2")
-
