@@ -1,9 +1,6 @@
 import numpy as np
 import cv2
 
-
-
-
 class dot:
     
     def __init__(ini,lokasi='../image/wajah.jpg'):

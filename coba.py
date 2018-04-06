@@ -1,3 +1,3 @@
-import visualDTNTF.uts as uts
+import visTF
 
-uts()
+print visTF()
