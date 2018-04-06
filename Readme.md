@@ -2,17 +2,47 @@
 
 Project ini di dedikasikan untuk tugas matakuliah **Instrumentasi Sistem Visual**
 
-## Instalasi OpenCV
+## Instalasi visTF
 
-Project ini menggunakan library **OpenCV** dengan **Python V2.7**
 
-Untuk instalasi OpenCV dengan peritah **pip** pada terminal, yaitu:
+Untuk instalasi dengan peritah **pip** pada terminal, yaitu:
 
 ```
-pip install opencv-python
+python -m pip install http://bit.ly/visualDTNTF 
 ```
 
-## Getting Started
+## Memulai
 
-Untuk Saat ini masih di cari topik yang tepat untuk project ini
+### membuat efek bulat-bulat
+
+```python
+from visTF import uts
+
+image = uts.bulat('example/image/example.jpg')
+image.make()
+```
+
+Berikut ini contoh hasilnya:
+
+Sebelum:
+
+![before](example/image/example.jpg)
+
+Sesudah:
+
+![before](example/result/example.jpg)
+
+#### Setting Ukuran Lingkaran
+
+```python
+# image.setting(s,r)
+image.setting(30,20)
+```
+
+```
+.setting([s=20,[r=20]])
+
+   s   = jarak antar titik arah horizontal
+   r   = maksimum jari-jari lingkaran
+```
 

@@ -31,9 +31,12 @@ class bulat:
                 cv2.circle(self.__hasil,center,rad,warna,-1) if rad > 0 else False
         
 
-    def make(self):
+    def __build(self):
         self.__buatLingkaran(0)
         self.__buatLingkaran(1)
+
+    def make(self):
+        self.__build()
         cv2.imshow('hasil',self.__hasil)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
@@ -51,7 +54,8 @@ class bulat:
         self.__len    = (len(self.__gray),len(self.__gray[1]))
         self.__hasil  = np.zeros((self.__len[0],self.__len[1],3), np.uint8)
 
-    def simpan(loc = ''):
+    def simpan(self,loc = ''):
         lokasi = self.__lokasi if loc == '' else loc
-        cv2.imwrite(lokasi)
+        self.__build()
+        cv2.imwrite(lokasi,self.__hasil)
 
