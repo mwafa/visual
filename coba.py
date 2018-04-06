@@ -1,3 +1,3 @@
-import visTF
+from visTF.uts import bulat
 
-print visTF()
+bulat()

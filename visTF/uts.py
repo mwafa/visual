@@ -1,8 +1,11 @@
 import numpy as np
 import cv2
 
-class dot:
-    
+
+class bulat:
+    """
+    Bulat merupakan funsi yang digunakan untuk membuat efek bulat-bulat.
+    """
     def __init__(ini,lokasi='../image/wajah.jpg'):
         ini.set_loc(lokasi)
         ini.__r      = 10
