@@ -8,5 +8,8 @@ setup(
     packages=['visTF'],
     author='Kelompok __ kelas Visual',
     author_email='wafax.4@gmail.com',
-    url='https://github.com/mwafa/visual'
+    url='https://github.com/mwafa/visual',
+    install_requires = [
+        'opencv-python', 'numpy'
+    ]
 )
