@@ -10,6 +10,6 @@ setup(
     author_email='wafax.4@gmail.com',
     url='https://github.com/mwafa/visual',
     install_requires = [
-        'opencv-python', 'numpy'
+        'opencv-python==3.1.0.0', 'numpy'
     ]
 )
