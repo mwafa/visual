@@ -25,8 +25,8 @@ class bulat:
 
     def __buatLingkaran(self,ke= 0):
         s   = self.__s
-        for row in range((self.__len[0]/s)-ke):
-            for col in range((self.__len[1]/s)-ke):
+        for row in range(int(self.__len[0]/s)-ke):
+            for col in range(int(self.__len[1]/s)-ke):
                 center,rad,warna = self.__kotak1(row,col,ke)
                 cv2.circle(self.__hasil,center,rad,warna,-1) if rad > 0 else False
         
