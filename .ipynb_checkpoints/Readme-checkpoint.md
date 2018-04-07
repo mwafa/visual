@@ -30,7 +30,7 @@ image.make()
 
 ### [Contoh Hasil](example/ipynb)
 
-Klik ling berikut untuk melihat [Contoh penggunaan](example/ipynb)
+Klik ling berikut untuk melihat [Contoh penggunaan](example/ipynb/usage.ipynb)
 
 Berikut ini contoh hasilnya:
 
