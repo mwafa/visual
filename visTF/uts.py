@@ -36,18 +36,29 @@ class bulat:
         self.__buatLingkaran(1)
 
     def make(self):
+        """
+        Digunakan untuk menampilkan hasil editing.
+        """
         self.__build()
         cv2.imshow('hasil',self.__hasil)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     
     def setting(self,s=20,r=10,win = 0):
+        """
+        Mengatur ukuran dari lingkaran yang akan dibuat.
+        s   : Jarak titikpusat lingkaran arah hoizontal.
+        r   : Jari-jari lingkaran maksimal.
+        """
         self.__r = r
         self.__s = s
         self.__hasil  = np.zeros((self.__len[0],self.__len[1],3), np.uint8)        
         self.make() if win else False
     
     def set_loc(self,lokasi):
+        """
+        Mengganti gambar dengan mengganti lokasinya.
+        """
         self.__lokasi = lokasi
         self.__gambar = cv2.imread(lokasi)
         self.__gray   = cv2.imread(lokasi,0)
@@ -55,7 +66,19 @@ class bulat:
         self.__hasil  = np.zeros((self.__len[0],self.__len[1],3), np.uint8)
 
     def simpan(self,loc = ''):
+        """
+        Menyimpan gambar dengan lokasi tertentu
+        """
         lokasi = self.__lokasi if loc == '' else loc
         self.__build()
         cv2.imwrite(lokasi,self.__hasil)
+    
+    def original(self):
+        """
+        Menampilkan gambar original
+        """
+        cv2.imshow('hasil',self.__gambar)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
 
