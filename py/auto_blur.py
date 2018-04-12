@@ -16,7 +16,7 @@ v = cv2.VideoCapture(0)
 
 n = []
 while True:
-    ret, frame = v.read();
+    ret, frame = v.read()
     img = frame
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
@@ -45,10 +45,10 @@ while True:
 
 #    jok = cv2.subtract(crop_img,img)
     vis = np.concatenate((frame, img), axis=1)
-    cv2.imshow("gray",img);
-    k = frame;
+    cv2.imshow("gray",img)
+    k = frame
     if cv2.waitKey(1) & 0xFF == ord("q"):
-        break;
+        break
 #print img
 v.release()
 cv2.destroyWindow("gray")
