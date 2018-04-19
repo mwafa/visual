@@ -24,7 +24,7 @@ while(True):
     cv2.imshow('frame',gray)
     cv2.imwrite('opencv.jpg',gray)
     cv2.imwrite('canny_camera.jpg',edges)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):  # tekan q untuk tutup dan meng-capture
         break
 
 
