@@ -82,9 +82,3 @@ class bulat:
         cv2.destroyAllWindows()
 
 
-class pixart:
-    def __init__(self,image):
-        self.image  = cv2.imread(image)
-
-    def __getRange(self):
-        w,r = self.image.shape
