@@ -1,5 +1,9 @@
 import cv2
 import numpy as np
+import serial
+
+arduino = serial.Serial('com1')
+
 
 def nothing(x):
     pass
@@ -33,10 +37,10 @@ while(1):
     
 
     # get current positions of four trackbars
-    s = cv2.getTrackbarPos('Hue','track')
-    s_m = cv2.getTrackbarPos('Hue_m','track')
-    h = cv2.getTrackbarPos('Sat','track')
-    h_m = cv2.getTrackbarPos('Sat_m','track')
+    s = cv2.getTrackbarPos('S','track')
+    s_m = cv2.getTrackbarPos('S_m','track')
+    h = cv2.getTrackbarPos('H','track')
+    h_m = cv2.getTrackbarPos('H_m','track')
     v = cv2.getTrackbarPos('V','track')
     v_m = cv2.getTrackbarPos('V_m','track')
     
@@ -74,6 +78,8 @@ while(1):
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(frame, "Ini Bendanya", loc, font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
         cv2.putText(frame,"(%i,%i)"%loc,(100,100),font, .8, (0,255,255),1)
+        
+        arduino.write((str(loc[0])+"\t"+str(loc[1])+"\n").encode())
     
 #    res = frame
     
