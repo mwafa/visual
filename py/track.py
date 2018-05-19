@@ -28,15 +28,15 @@ while(1):
     if k == ord('q'):
         break
     
-    ret, frame = vid.read();
+    ret, frame = vid.read()
     hsv = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)
     
 
     # get current positions of four trackbars
-    s = cv2.getTrackbarPos('S','track')
-    s_m = cv2.getTrackbarPos('S_m','track')
-    h = cv2.getTrackbarPos('H','track')
-    h_m = cv2.getTrackbarPos('H_m','track')
+    s = cv2.getTrackbarPos('Hue','track')
+    s_m = cv2.getTrackbarPos('Hue_m','track')
+    h = cv2.getTrackbarPos('Sat','track')
+    h_m = cv2.getTrackbarPos('Sat_m','track')
     v = cv2.getTrackbarPos('V','track')
     v_m = cv2.getTrackbarPos('V_m','track')
     
@@ -67,11 +67,13 @@ while(1):
     #    print l
         (x,y,w,h) = list(l)
 #        frame = cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
-        cv2.circle(frame,(x+w/2,y+h/2),1,(255,0,0),5)
-        cv2.line(frame,(x+w/2,y+h/2),(x+w/2+20,y+h/2-40),(0,0,255))
+        loc = (x+w//2+20,y+h//2-40)
+        cv2.circle(frame,(x+w//2,y+h//2),1,(255,0,0),5)
+        cv2.line(frame,(x+w//2,y+h//2),loc,(0,0,255))
     
         font = cv2.FONT_HERSHEY_SIMPLEX
-        cv2.putText(frame, "Ini Bendanya", (x+w/2+20,y+h/2-40), font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
+        cv2.putText(frame, "Ini Bendanya", loc, font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
+        cv2.putText(frame,"(%i,%i)"%loc,(100,100),font, .8, (0,255,255),1)
     
 #    res = frame
     
