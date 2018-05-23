@@ -78,8 +78,8 @@ while(1):
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(frame, "Ini Bendanya", loc, font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
         cv2.putText(frame,"(%i,%i)"%loc,(100,100),font, .8, (0,255,255),1)
-        
-        arduino.write((str(loc[0])+"\t"+str(loc[1])+"\n").encode())
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+        arduino.write((str(loc[0])+" "+str(loc[1])+"\n").encode())
     
 #    res = frame
     
