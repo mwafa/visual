@@ -1,28 +1,86 @@
-import cv2
 import numpy as np
+import cv2
 
-cap = cv2.VideoCapture(0)
+class bulat:
+    """
+    Bulat merupakan fungsi yang digunakan untuk membuat efek bulat-bulat.
+    """
+    def __init__(self,lokasi='../image/wajah.jpg'):
+        self.set_loc(lokasi)
+        self.__r      = 10
+        self.__s      = 20
 
-while(1):
+    def __kotak1(self,x,y,ke = 0):
+        s = self.__s
+        r = self.__r
 
-    _, frame = cap.read()
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        x1,x2 = [s*x,s*x+s] if ke == 0 else [int(s*x+.5*s),int(s*x+1.5*s)]
+        y1,y2 = [s*y,s*y+s] if ke == 0 else [int(s*y+.5*s),int(s*y+1.5*s)]
+
+        warna   = tuple([int(np.average(self.__gambar[x1:x2,y1:y2,i])) for i in range(3)])
+        rad     = int(np.average(self.__gray[x1:x2,y1:y2])*r/255)
+        center  = (int((y1+y2)/2),int((x1+x2)/2))
+
+        return center,rad,warna
+
+    def __buatLingkaran(self,ke= 0):
+        s   = self.__s
+        for row in range(int(self.__len[0]/s)-ke):
+            for col in range(int(self.__len[1]/s)-ke):
+                center,rad,warna = self.__kotak1(row,col,ke)
+                cv2.circle(self.__hasil,center,rad,warna,-1) if rad > 0 else False
+        
+
+    def __build(self):
+        self.__buatLingkaran(0)
+        self.__buatLingkaran(1)
+
+    def make(self):
+        """
+        Digunakan untuk menampilkan hasil editing.
+        """
+        self.__build()
+        cv2.imshow('hasil',self.__hasil)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
     
-    lower_red = np.array([30,150,50])
-    upper_red = np.array([255,255,180])
+    def setting(self,s=20,r=10,win = 0):
+        """
+        Mengatur ukuran dari lingkaran yang akan dibuat.
+        s   : Jarak titik pusat lingkaran arah horizontal.
+        r   : Jari-jari lingkaran maksimal.
+        """
+        self.__r = r
+        self.__s = s
+        self.__hasil  = np.zeros((self.__len[0],self.__len[1],3), np.uint8)        
+        self.make() if win else False
     
-    mask = cv2.inRange(hsv, lower_red, upper_red)
-    res = cv2.bitwise_and(frame,frame, mask= mask)
+    def set_loc(self,lokasi):
+        """
+        Mengganti gambar dengan mengganti lokasinya.
+        """
+        self.__lokasi = lokasi
+        self.__gambar = cv2.imread(lokasi)
+        self.__gray   = cv2.imread(lokasi,0)
+        self.__len    = (len(self.__gray),len(self.__gray[1]))
+        self.__hasil  = np.zeros((self.__len[0],self.__len[1],3), np.uint8)
+
+    def simpan(self,loc = ''):
+        """
+        Menyimpan gambar dengan lokasi tertentu
+        """
+        lokasi = self.__lokasi if loc == '' else loc
+        self.__build()
+        cv2.imwrite(lokasi,self.__hasil)
     
-    # cv2.imshow('res',res)
+    def original(self):
+        """
+        Menampilkan gambar original
+        """
+        cv2.imshow('hasil',self.__gambar)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
-    # cv2.imshow('Original',frame)
-    edges = cv2.Canny(frame,80,200)
-    cv2.imshow('Edges',edges)
+gambar = bulat('example/image/example.jpg')
+gambar.make()
 
-    k = cv2.waitKey(5) & 0xFF
-    if k == 27:
-        break
-
-cv2.destroyAllWindows()
-cap.release()
