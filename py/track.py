@@ -1,9 +1,9 @@
 import cv2
 import numpy as np
 import serial
+import time
 
-arduino = serial.Serial('com1')
-
+arduino = serial.Serial('com3',9600)
 
 def nothing(x):
     pass
@@ -26,15 +26,14 @@ cv2.createTrackbar('H_m','track',147,255,nothing)
 cv2.createTrackbar('V','track',7,255,nothing)
 cv2.createTrackbar('V_m','track',220,255,nothing)
 
+step = 0
 
 while(1):
-    k = cv2.waitKey(1) & 0xFF
-    if k == ord('q'):
-        break
-    
+
     ret, frame = vid.read()
     hsv = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)
     
+    step = 0 if step>20 else step+1
 
     # get current positions of four trackbars
     s = cv2.getTrackbarPos('S','track')
@@ -71,25 +70,43 @@ while(1):
     #    print l
         (x,y,w,h) = list(l)
 #        frame = cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
-        loc = (x+w//2+20,y+h//2-40)
-        cv2.circle(frame,(x+w//2,y+h//2),1,(255,0,0),5)
-        cv2.line(frame,(x+w//2,y+h//2),loc,(0,0,255))
-    
+        loc = (x+w//2,y+h//2)
+        cv2.circle(frame,loc,1,(255,0,0),5)
+        cv2.line(frame,loc,(x+w//2+20,y+h//2-40),(0,0,255))
+
+        tinggi = len(frame)
+        lebar = len(frame[1])
+
+        cx = lambda x: x*150//lebar
+        cy = lambda x: x*150//tinggi
+        
+        
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(frame, "Ini Bendanya", loc, font, 0.8, (0, 255, 0), 1, cv2.LINE_AA)
-        cv2.putText(frame,"(%i,%i)"%loc,(100,100),font, .8, (0,255,255),1)
-        cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
-        arduino.write((str(loc[0])+" "+str(loc[1])+"\n").encode())
+        cv2.putText(frame,"(%i,%i)"%(cx(loc[0]),cy(loc[1])),(100,100),font, .8, (0,255,255),1)
+        # cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+
+        values = bytearray([cx(loc[0]),cy(loc[1])])
+        if(step == 0):
+            arduino.write(values)
+
+        # arduino.write(conf(loc[1]))
+        # arduino.write(conf(loc[0]))
     
 #    res = frame
     
     cv2.imshow('image',res)
     cv2.imshow('frame',frame)
-    cv2.imshow('mask',mask)
+    # cv2.imshow('mask',mask)
     
     #keren sekali
     
     img[:] = [s,h,v]
+
+    k = cv2.waitKey(1) & 0xFF
+    if k == ord('q'):
+        break
+    
 
 #print mask
 cv2.destroyAllWindows()
